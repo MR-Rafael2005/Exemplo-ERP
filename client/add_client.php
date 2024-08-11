@@ -23,7 +23,7 @@
         <div class="col-2"></div>
 
         <div class="col-8">
-            <form class="row g-3" action="./add_client_validation.php" method="POST">
+            <form class="row g-3" action="./client_controller.php" method="POST">
                 <div class="col-12">
                     <label for="inputEmail4" class="form-label">Nome</label>
                     <input type="text" class="form-control" id="inputEmail4" name="name" required>
@@ -34,7 +34,7 @@
                 </div>
                 <div class="col-md-6">
                     <label for="inputPassword4" class="form-label">Contato</label>
-                    <input type="text" class="form-control" id="inputPassword4" name="contact" placeholder="Apenas números" maxlength="11" required>
+                    <input type="text" class="form-control" id="contact" name="contact" placeholder="Apenas números" maxlength="11" required>
                 </div>
 
                 <?php
@@ -49,7 +49,7 @@
                 </div>
                 <div class="col-md-6">
                     <label for="inputCity" class="form-label">CPF</label>
-                    <input type="text" class="form-control" id="inputCity" name="cpf" placeholder="Apenas números" maxlength="11" required>
+                    <input type="text" class="form-control" id="cpf" name="cpf" placeholder="Apenas números" maxlength="11" required>
                 </div>
 
                 <?php
@@ -58,6 +58,8 @@
                     }
                 ?>
 
+                <input type="hidden" value="insert" name="action">
+
                 <div class="col-12">
                     <button type="submit" class="btn btn-primary">Adicionar</button>
                 </div>
@@ -65,5 +67,15 @@
         </div>
         <div class="col-2"></div>
     </div>
+
+    <script src="../assets/dist/js/jquery.min.js"></script>
+    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/dist/js/jquery.mask.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#cpf').mask('000.000.000-00');
+            $('#contact').mask('(00) 00000-0000');
+        });
+    </script>
 </body>
 </html>

@@ -14,6 +14,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/ebae81de42.js" crossorigin="anonymous"></script>
     <title>Fornecedores</title>
 </head>
 <body>
@@ -56,17 +57,56 @@
                     <th scope="col">Contato</th>
                     <th scope="col">Endereço</th>
                     <th scope="col">CNPJ</th>
+                    <th scope="col">Ação</th>
                 </tr>
             </thead>
             <?php for ($i = 0; $i < sizeof($_SESSION['suppliers']); $i++): ?>
                 <tr>
                     <td> <?php echo ($i + 1); ?> </td>
-                    <td> <?php echo $_SESSION['suppliers'][$i]["name"]; ?></td>
-                    <td> <?php echo $_SESSION['suppliers'][$i]["email"]; ?></td>
-                    <td> <?php echo $_SESSION['suppliers'][$i]["contact"]; ?></td>
-                    <td> <?php echo $_SESSION['suppliers'][$i]["address"]; ?></td>
-                    <td> <?php echo $_SESSION['suppliers'][$i]["cnpj"]; ?></td>
+                    <td> <?php echo $_SESSION['suppliers'][$i][0]; ?></td>
+                    <td> <?php echo $_SESSION['suppliers'][$i][1]; ?></td>
+                    <td> <?php echo $_SESSION['suppliers'][$i][2]; ?></td>
+                    <td> <?php echo $_SESSION['suppliers'][$i][3]; ?></td>
+                    <td> <?php echo $_SESSION['suppliers'][$i][4]; ?></td>
+                    <td>
+                        <button class="btn btn-danger btn-md" title="Excluir Fornecedor" data-bs-toggle="modal" data-bs-target="#delete-<?=$i;?>" >
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                        
+                        <a href="mod_supplier.php?id=<?=$i;?>" class="btn btn-warning btn-md" title="Editar Fornecedor">
+                            <i class="fa fa-pencil"></i>
+                        </a>
+                    </td>
                 </tr>
+
+                <!-- Modal de Exclusão -->
+                <div class="modal fade" id="delete-<?=$i;?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <form action="supplier_controller.php" method="POST">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Excluir Fornecedor?! </h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Tem certeza que deseja excluir o fornecedor 
+                                    <strong> <?= $_SESSION['suppliers'][$i][0]; ?> </strong> !? <br>
+                                    Essa operação não pode ser desfeita.
+                                    
+                                    <input type="hidden" name="action" value="delete">
+                                    <input type="hidden" name="id" value="<?=$i;?>">
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa fa-ban"></i> Não, cancelar! </button>
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="fa fa-thumbs-up"></i> Sim, continuar!  
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             <?php endfor; ?>
         </table>
     </div>
